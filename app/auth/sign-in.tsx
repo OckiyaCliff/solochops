@@ -1,15 +1,16 @@
+import { Link } from 'expo-router';
 import { useState } from 'react';
 import {
+  ActivityIndicator,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
   StyleSheet,
-  View,
   Text,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-  ActivityIndicator,
+  View,
 } from 'react-native';
-import { Link } from 'expo-router';
 import { useAuth } from '../../ctx/auth';
 
 export default function SignInScreen() {
@@ -41,27 +42,41 @@ export default function SignInScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Welcome Back</Text>
-        <Text style={styles.subtitle}>Sign in to continue</Text>
+        <View style={styles.header}>
+          <Image
+            source={require('../../assets/images/logo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+          <Text style={styles.title}>Welcome Back</Text>
+          <Text style={styles.subtitle}>Sign in to continue</Text>
+        </View>
 
         {error ? <Text style={styles.error}>{error}</Text> : null}
 
         <View style={styles.form}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-            autoCapitalize="none"
-            keyboardType="email-address"
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter your email"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+              keyboardType="email-address"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter your password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+          </View>
 
           <TouchableOpacity
             style={styles.button}
@@ -96,6 +111,15 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
   },
+  header: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    marginBottom: 20,
+  },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -105,10 +129,17 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: '#666666',
-    marginBottom: 32,
   },
   form: {
-    gap: 16,
+    gap: 20,
+  },
+  inputContainer: {
+    gap: 8,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333333',
   },
   input: {
     height: 50,
@@ -117,10 +148,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 16,
     fontSize: 16,
+    backgroundColor: '#F8F8F8',
   },
   button: {
     height: 50,
-    backgroundColor: '#FF6B6B',
+    backgroundColor: '#E22020',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
@@ -132,8 +164,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   error: {
-    color: '#FF3B30',
+    color: '#E22020',
     marginBottom: 16,
+    textAlign: 'center',
   },
   footer: {
     flexDirection: 'row',
@@ -144,7 +177,7 @@ const styles = StyleSheet.create({
     color: '#666666',
   },
   footerLink: {
-    color: '#FF6B6B',
+    color: '#E22020',
     fontWeight: '600',
   },
 }); 
