@@ -25,17 +25,24 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack screenOptions={{ headerShown: false }}>
         {!isLoading && (
           <>
             {user ? (
               // User is signed in
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="(tabs)" />
             ) : (
               // User is not signed in
-              <Stack.Screen name="auth" options={{ headerShown: false }} />
+              <Stack.Screen name="auth" />
             )}
-            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+            <Stack.Screen 
+              name="modal" 
+              options={{ 
+                presentation: 'modal',
+                headerShown: true,
+                headerTitle: 'Details'
+              }} 
+            />
           </>
         )}
       </Stack>
